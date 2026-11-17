@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹프로그래밍 학기말 복습 프로필 - 대구대학교</title>
+    <script src="exam_script.js" defer></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+        body {
+            background-color: lightgray;
+            color: black;
+            line-height: 1.6;
+            padding: 30px 15px;
+        }
+        .cv-sheet {
+            max-width: 950px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            border: 2px solid teal;
+            overflow: hidden;
+        }
+        header {
+            background-color: teal;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo-card {
+            width: 92px;
+            height: 92px;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 6px;
+            flex-shrink: 0;
+        }
+        .logo-card img {
+            height: 84px;
+            width: auto;
+            display: block;
+        }
+        .header-title h1 {
+            font-size: 22px;
+            color: white;
+        }
+        .header-title p {
+            font-size: 14px;
+            color: lightyellow;
+            margin-top: 4px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: darkslategray;
+            padding: 12px 18px;
+            border-radius: 16px;
+            flex-shrink: 0;
+        }
+        .mascot-img {
+            width: 115px;
+            height: 115px;
+            object-fit: cover;
+            background-color: white;
+            border-radius: 14px;
+            display: block;
+        }
+        .mascot-cheer {
+            color: white;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .mascot-cheer strong {
+            display: block;
+            color: yellow;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .cv-body {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .cv-sidebar {
+            width: 35%;
+            background-color: whitesmoke;
+            padding: 25px;
+            border-right: 1px solid lightgray;
+        }
+        .cv-main {
+            width: 65%;
+            padding: 25px 30px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: teal;
+            border-bottom: 2px solid teal;
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+            margin-top: 22px;
+        }
+        .section-title:first-child {
+            margin-top: 0;
+        }
+        .info-list {
+            list-style: none;
+            font-size: 14px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid lightgray;
+        }
+        .info-list li {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed lightgray;
+        }
+        .info-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .info-list strong {
+            color: teal;
+            display: block;
+        }
+        .topic-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background-color: white;
+            border: 1px solid gray;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: black;
+        }
+        .topic-btn:hover {
+            background-color: lightcyan;
+            border-color: teal;
+            color: teal;
+            font-weight: bold;
+        }
+        #status-badge {
+            background-color: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid lightgray;
+            font-size: 14px;
+            color: dimgray;
+        }
+        #wrong-explanations {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .wrong-item {
+            background-color: mistyrose;
+            border: 1px solid red;
+            border-left: 4px solid red;
+            padding: 10px;
+            font-size: 13px;
+            color: darkred;
+            border-radius: 6px;
+        }
+        .wrong-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: red;
+        }
+        .summary-box {
+            background-color: lightcyan;
+            border-left: 5px solid teal;
+            padding: 15px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            color: black;
+        }
+        .question-card {
+            border: 2px solid lightgray;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: white;
+        }
+        .question-card p {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: navy;
+        }
+        .option-label {
+            display: block;
+            font-size: 14px;
+            padding: 6px 10px;
+            margin-bottom: 5px;
+            border-radius: 6px;
+            background-color: whitesmoke;
+            cursor: pointer;
+        }
+        .option-label:hover {
+            background-color: lightcyan;
+        }
+        .option-label input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed lightgray;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        #btn-check {
+            background-color: teal;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #btn-check:hover {
+            background-color: darkslategray;
+        }
+        #btn-retry {
+            background-color: gray;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #btn-retry:hover {
+            background-color: dimgray;
+        }
+        #score-display {
+            font-size: 16px;
+            font-weight: bold;
+            color: teal;
+            background-color: lightcyan;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid teal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-sheet">
+        <header>
+            <div class="header-left">
+                <div class="logo-card">
+                    <img src="logo.png" alt="대구대학교 로고">
+                </div>
+                <div class="header-title">
+                    <h1>컴퓨터소프트웨어전공 - 학기말 평가 프로필</h1>
+                    <p>대구대학교 | 교과목: 웹프로그래밍 (담당교수: 이미란)</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="mascot-cheer">
+                    <strong>백호 두호 응원</strong>
+                    "기말고사 만점 화이팅!"
+                </div>
+                <img src="mascot.png" alt="대구대 마스코트 두호" class="mascot-img">
+            </div>
+        </header>
+
+        <div class="cv-body">
+            <aside class="cv-sidebar">
+                <h2 class="section-title">소개</h2>
+                <ul class="info-list">
+                    <li><strong>소속 학과</strong>컴퓨터소프트웨어전공</li>
+                    <li><strong>대학교</strong>대구대학교 (Daegu Univ.)</li>
+                    <li><strong>학습 목표</strong>웹프로그래밍 기말 지필평가 완벽 대비</li>
+                    <li><strong>핵심 기술</strong>HTML5, CSS3, JavaScript, Git</li>
+                </ul>
+
+                <h2 class="section-title">학습 모듈</h2>
+                <div id="module-menu">
+                    <button class="topic-btn" onclick="selectModule(0)">1. 웹 개요 및 Git 기초</button>
+                    <button class="topic-btn" onclick="selectModule(1)">2. HTML5 시맨틱 및 폼</button>
+                    <button class="topic-btn" onclick="selectModule(2)">3. CSS3 및 레이아웃</button>
+                    <button class="topic-btn" onclick="selectModule(3)">4. JavaScript 및 DOM</button>
+                </div>
+
+                <h2 class="section-title">시험 준비 상태</h2>
+                <p id="status-badge">문제를 풀고 '정답 확인'을 클릭하면 결과와 오답 해설이 표시됩니다.</p>
+                <div id="wrong-explanations"></div>
+            </aside>
+
+            <main class="cv-main">
+                <h2 class="section-title">모듈 핵심 요약</h2>
+                <div id="module-summary" class="summary-box">
+                    <strong>1. 웹 개요 및 Git 기초:</strong> 인터넷은 물리적인 네트워크 인프라이며, 웹(WWW)은 인터넷 상에서 동작하는 서비스 환경입니다. Git은 Commit, Branch, Merge를 통해 소스 코드 변경 이력을 관리합니다.
+                </div>
+
+                <h2 class="section-title">실전 평가 시트</h2>
+                <form id="quiz-form">
+                    <div id="questions-list"></div>
+
+                    <div class="action-bar">
+                        <div class="btn-group">
+                            <button type="button" id="btn-check">정답 확인</button>
+                            <button type="button" id="btn-retry">다시 풀기</button>
+                        </div>
+                        <div id="score-display">점수: 0 / 4</div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
